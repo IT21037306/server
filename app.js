@@ -21,6 +21,8 @@ import helmet from "helmet";
 
 const app = express();
 
+app.disable("x-powered-by"); //Disable X-Powered-By header
+
 app.use(helmet());
 
 const allowedOrigins = ["http://localhost:3030"];
