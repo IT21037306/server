@@ -18,8 +18,17 @@ import session from "express-session";
 import router from "./OAuth.js";
 import passport from "passport";
 import helmet from "helmet";
+import csurf from "csurf";
 
 const app = express();
+
+const csrfProtection = csurf({ cookie: true });
+
+app.use(csrfProtection);
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.disable("x-powered-by"); //Disable X-Powered-By header
 
