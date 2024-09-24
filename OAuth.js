@@ -3,11 +3,14 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import express, { Router } from "express";
 import session from "express-session";
 import csurf from "csurf";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const router = Router();
 
 app.disable("x-powered-by"); //Disable X-Powered-By header
+
+app.use(cookieParser());
 
 // Configure session middleware
 app.use(
@@ -15,7 +18,7 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }, // Set to true if using HTTPS
+    cookie: { secure: true, httpOnly: true, sameSite: "strict" }, // Set to true if using HTTPS
   })
 );
 
