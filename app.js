@@ -128,7 +128,8 @@ app.post("/uploadImage", (req, res) => {
       res.send(url);
     })
     .catch((err) => {
-      res.status(500).send(err);
+      console.error(err);
+      res.status(500).send("An unexpected error occurred.");
     });
 });
 
