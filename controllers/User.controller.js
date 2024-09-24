@@ -165,6 +165,11 @@ const UserController = {
 
   searchUser: async (req, res) => {
     const { term } = req.query;
+
+    if (typeof term !== "string") {
+      return res.status(400).send("Invalid search term");
+    }
+
     const sanitizedTerm = escapeRegExp(term);
     const regex = new RegExp(sanitizedTerm, "i");
     const users = await User.find({
