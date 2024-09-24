@@ -7,6 +7,8 @@ import csurf from "csurf";
 const app = express();
 const router = Router();
 
+app.disable("x-powered-by"); //Disable X-Powered-By header
+
 // Configure session middleware
 app.use(
   session({
