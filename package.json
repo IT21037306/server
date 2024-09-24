@@ -26,7 +26,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.0",
     "moment": "^2.30.1",
-    "mongoose": "^6.9.0",
+    "mongoose": "^8.6.3",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
     "pino": "^8.8.0",
