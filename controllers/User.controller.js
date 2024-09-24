@@ -165,18 +165,18 @@ const UserController = {
 
   searchUser: async (req, res) => {
     const { term } = req.query;
-    const regex = new RegExp(term, "i");
+    const sanitizedTerm = escapeRegExp(term);
+    const regex = new RegExp(sanitizedTerm, "i");
     const users = await User.find({
-      $and: [
-        {
-          $or: [{ email: regex }, { firstName: regex }],
-        },
-        { type: "user" },
-      ],
+      email: regex,
     });
 
     res.json(users);
   },
 };
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 export default UserController;
