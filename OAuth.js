@@ -2,6 +2,7 @@ import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import express, { Router } from "express";
 import session from "express-session";
+import csurf from "csurf";
 
 const app = express();
 const router = Router();
@@ -15,6 +16,14 @@ app.use(
     cookie: { secure: false }, // Set to true if using HTTPS
   })
 );
+
+const csrfProtection = csurf({ cookie: true });
+app.use(csrfProtection);
+
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 // Initialize Passport and restore authentication state, if any, from the session
 app.use(passport.initialize());
